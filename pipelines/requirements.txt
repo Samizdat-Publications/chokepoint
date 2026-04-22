@@ -1,0 +1,8 @@
+aiohttp>=3.9.0
+aiohttp-retry>=2.8.3
+asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
+websockets>=12.0
+python-dotenv>=1.0.0
+tenacity>=8.2.3
+structlog>=24.1.0
