@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
+import PriceTransitChart from '@/components/PriceTransitChart';
 import pool from '@/lib/db';
-
-const PriceTransitChart = dynamic(() => import('@/components/PriceTransitChart'), { ssr: false });
 
 async function getChartData() {
   try {

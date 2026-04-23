@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
+import HormuzMapLoader from '@/components/HormuzMapLoader';
 import pool from '@/lib/db';
-
-const HormuzMap = dynamic(() => import('@/components/HormuzMap'), { ssr: false });
 
 async function getVessels() {
   try {
@@ -30,7 +28,7 @@ export default async function MapPage() {
         <span className="text-xs text-gray-500">{vessels.length} vessels tracked</span>
       </div>
       <div className="flex-1">
-        <HormuzMap vessels={vessels} />
+        <HormuzMapLoader vessels={vessels} />
       </div>
     </div>
   );
