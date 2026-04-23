@@ -48,6 +48,20 @@ class Config:
         default_factory=lambda: float(os.environ.get("HORMUZ_LON_MAX", "56.5"))
     )
 
+    # --- Oil price API keys ---
+    eia_api_key: str = field(
+        default_factory=lambda: os.environ.get("EIA_API_KEY", "")
+    )
+    fred_api_key: str = field(
+        default_factory=lambda: os.environ.get("FRED_API_KEY", "")
+    )
+    alpha_vantage_api_key: str = field(
+        default_factory=lambda: os.environ.get("ALPHA_VANTAGE_API_KEY", "")
+    )
+    price_source: str = field(
+        default_factory=lambda: os.environ.get("PRICE_SOURCE", "all")
+    )
+
     # --- Pipeline settings ---
     poll_interval_seconds: int = field(
         default_factory=lambda: int(os.environ.get("POLL_INTERVAL_SECONDS", "900"))

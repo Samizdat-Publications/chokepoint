@@ -50,7 +50,7 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: mypy
-        run: mypy vessel_positions common
+        run: mypy vessel_positions oil_prices common
 
   python-test:
     name: Python tests

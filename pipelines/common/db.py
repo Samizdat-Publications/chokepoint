@@ -84,3 +84,31 @@ async def insert_vessel_positions(rows: list[dict[str, Any]]) -> int:
         )
     # executemany returns the status string of the last command
     return len(rows)
+
+
+async def insert_oil_prices(rows: list[dict[str, Any]]) -> int:
+    """
+    Bulk-insert oil price records.
+    Upserts on (series_id, time, source) — safe to rerun on backfill.
+    Returns the number of rows processed.
+    """
+    if not rows:
+        return 0
+
+    async with acquire() as conn:
+        await conn.executemany(
+            """
+            INSERT INTO oil_prices (time, series_id, source, price, currency, unit)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            ON CONFLICT (series_id, time, source) DO UPDATE
+                SET price = EXCLUDED.price
+            """,
+            [
+                (
+                    r["time"], r["series_id"], r["source"],
+                    r["price"], r.get("currency", "USD"), r["unit"],
+                )
+                for r in rows
+            ],
+        )
+    return len(rows)
